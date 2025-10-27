@@ -1,25 +1,43 @@
 <?php
 namespace App\Repositories;
+
 use App\Models\Anotation;
 use PDO;
+
 class AnotationRepository {
     public function __construct(private PDO $pdo){}
+
     public function all(): array {
-        $st = $this->pdo->query("SELECT id,texto,created_at,user_id FROM `anotacoes` ORDER BY id DESC");
-        return array_map(fn($r) => new Anotation($r['id'],$r['texto'],$r['created_at'],$r['user_id']), $st->fetchAll());
+        $st = $this->pdo->query("SELECT a.id, a.texto, a.created_at, a.user_id, u.name AS user_nome FROM anotacoes a LEFT JOIN user u ON a.user_id = u.id");
+        return array_map(fn($r) => new Anotation(
+            (int)$r['id'],
+            (string)$r['texto'],
+            (int)$r['user_id'],
+            $r['created_at']
+        ), $st->fetchAll());
     }
 
     public function find(int $id): ?Anotation {
         $st = $this->pdo->prepare("SELECT id,texto,created_at,user_id FROM `anotacoes` WHERE id=?");
         $st->execute([$id]);
         $r = $st->fetch();
-        return $r ? new Anotation($r['id'],$r['texto'],$r['created_at'],$r['user_id']) : null;
+        return $r ? new Anotation(
+            (int)$r['id'],
+            (string)$r['texto'],
+            (int)$r['user_id'],
+            $r['created_at']
+        ) : null;
     }
 
     public function findByUserId(int $userId): array {
         $st = $this->pdo->prepare("SELECT id,texto,created_at,user_id FROM `anotacoes` WHERE user_id=? ORDER BY id DESC");
         $st->execute([$userId]);
-        return array_map(fn($r) => new Anotation($r['id'],$r['texto'],$r['created_at'],$r['user_id']), $st->fetchAll());
+        return array_map(fn($r) => new Anotation(
+            (int)$r['id'],
+            (string)$r['texto'],
+            (int)$r['user_id'],
+            $r['created_at']
+        ), $st->fetchAll());
     }
 
     public function create(Anotation $a): int {
