@@ -1,4 +1,4 @@
-# nutrihealth
+# Nutrihealth
 Sistema desenvolvido como projeto de extensão para a Clínica de Nutrição da Unicesumar.
 
 ---
