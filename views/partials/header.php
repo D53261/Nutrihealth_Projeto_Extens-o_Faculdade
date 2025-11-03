@@ -30,7 +30,7 @@
       --surface:#ffffff; --surface-elev:#ffffff; --on-surface:#111827;
       --primary:#16a34a; --on-primary:#052e16;
       --danger:#dc2626; --on-danger:#ffffff;
-      --hover:#e5e7eb; --border:#d1d5db;
+      --hover:#e5e7eb; --border:#d1d5db; --second-hover: #ffffffff;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;height:100%;background:linear-gradient(180deg,var(--surface) 0%, var(--bg) 100%);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
@@ -48,9 +48,9 @@
     .nav-item .label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     header.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar-h);display:flex;align-items:center;gap:10px;background:var(--surface-elev);border-bottom:1px solid var(--border);padding:0 12px;z-index:50;}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface-elev);color:var(--on-surface);cursor:pointer}
-    .btn:hover{background:var(--hover)}
+    .btn:hover{background:var(--second-hover)}
     .btn-primary{background:var(--primary);border-color:transparent;color:var(--on-primary);font-weight:600}
-    .btn-primary:hover{filter:brightness(0.95)}
+    .btn-primary:hover{filter:brightness(1.95)}
     .btn-danger{background:var(--danger);border-color:transparent;color:var(--on-danger);font-weight:600}
     .btn-danger:hover{filter:brightness(0.95)}
     main.content{flex:1;width:100%;padding:calc(var(--topbar-h) + 16px) 16px 24px}
@@ -59,6 +59,8 @@
     .page-sub{font-size:14px;color:var(--muted)}
     .overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:55;}
     .overlay.show{opacity:1;pointer-events:auto}
+    .note-box {margin:0; padding:6px 14px 10px 14px; display:block; background:#2f2f40; border-left:4px solid #4ade80; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.35); font-family:'Segoe UI',sans-serif; font-size:14px; line-height:1.4em; color:#e2e2e5; white-space:pre-line; word-wrap:break-word; text-align:justify;max-width: 80%;}
+    .note-box:first-line{line-height: 0.2em;}
     @media (min-width: 1024px){
       aside.sidebar{transform:none;}
       .overlay{display:none}
@@ -88,7 +90,5 @@
       <button class="btn" id="btnSidebar" aria-label="Alternar menu"><i data-lucide="menu"></i><span class="label">Menu</span></button>
       <div style="flex:1"></div>
       <button class="btn" id="btnTheme" title="Tema"><i data-lucide="sun"></i></button>
-      <a class="btn btn-primary" href="/nutrihealth/public/?action=create"><i data-lucide="plus"></i> Novo</a>
     </header>
     <main class="content">
-      <div class="page-head"><i data-lucide="layout-grid"></i><div><div class="page-title">Usuários</div><div class="page-sub">Gestão de usuários do sistema</div></div></div>

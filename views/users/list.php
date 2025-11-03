@@ -1,5 +1,7 @@
 <?php include __DIR__ . '/../partials/header.php'; ?>
 
+<div class="page-head"><i data-lucide="layout-grid"></i><div><div class="page-title">Usuários</div><div class="page-sub">Gestão de usuários do sistema</div></div></div>
+
 <h2 style="margin-top:8px">Lista de Usuários</h2>
 
 <table style="border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--border)">
@@ -25,6 +27,12 @@
     </tr>
   <?php endforeach; ?>
 </table>
+
+<div style="margin-top:12px;">
+  <a href="?action=create" class="btn btn-success">
+    <i data-lucide="plus-circle"></i> Criar Novo Usuário
+  </a>
+</div>
 
 <script>
 function confirmDelete(id) {

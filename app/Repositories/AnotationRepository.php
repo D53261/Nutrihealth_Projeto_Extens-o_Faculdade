@@ -8,14 +8,27 @@ class AnotationRepository {
     public function __construct(private PDO $pdo){}
 
     public function all(): array {
-        $st = $this->pdo->query("SELECT a.id, a.texto, a.created_at, a.user_id, u.name AS user_nome FROM anotacoes a LEFT JOIN user u ON a.user_id = u.id");
-        return array_map(fn($r) => new Anotation(
-            (int)$r['id'],
-            (string)$r['texto'],
-            (int)$r['user_id'],
-            $r['created_at']
-        ), $st->fetchAll());
-    }
+    $st = $this->pdo->query("
+        SELECT 
+            a.id, 
+            a.texto, 
+            a.created_at, 
+            a.user_id, 
+            u.name AS user_nome
+        FROM anotacoes a
+        LEFT JOIN user u ON a.user_id = u.id
+        ORDER BY a.id DESC
+    ");
+
+    return array_map(fn($r) => (object)[
+        'id' => (int)$r['id'],
+        'texto' => (string)$r['texto'],
+        'user_id' => (int)$r['user_id'],
+        'created_at' => $r['created_at'],
+        'user_nome' => $r['user_nome'] ?? 'Desconhecido'
+    ], $st->fetchAll(\PDO::FETCH_ASSOC));
+}
+
 
     public function find(int $id): ?Anotation {
         $st = $this->pdo->prepare("SELECT id,texto,created_at,user_id FROM `anotacoes` WHERE id=?");

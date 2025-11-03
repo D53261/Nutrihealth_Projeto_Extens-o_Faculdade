@@ -107,4 +107,5 @@ class AnotationController {
         $st->execute([$user_id]);
         return (bool)$st->fetchColumn();
     }
+
 }

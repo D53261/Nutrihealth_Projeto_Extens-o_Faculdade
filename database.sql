@@ -12,7 +12,7 @@ CREATE TABLE `user` (
 
 CREATE TABLE `anotacoes` (
   id int not null AUTO_INCREMENT,
-  texto VARCHAR(255) not null,
+  texto VARCHAR(1000) not null,
   data 
   user_id int NOT NULL,
   PRIMARY KEY (id),
